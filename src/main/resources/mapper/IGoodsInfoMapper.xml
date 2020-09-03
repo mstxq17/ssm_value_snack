@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xq17.snack.mapper.IGoodsInfoMapper">
+  <select id="total" resultType="int">
+    select count(gno) from goodsinfo where status !=0
+  </select>
+  
+  <select id="findByPage" resultType="GoodsInfo" parameterType="map">
+  	select gno, gname, price, pics pic, weight, unit from goodsinfo where status !=0 order by gno desc limit #{page}, #{rows}
+  </select>
+
+</mapper>

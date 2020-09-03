@@ -184,6 +184,10 @@ a{
 	padding-bottom: 10px
 }
 
+.price::before{
+  content: '\00A5'; /*&yen */
+}
+
 
 .view_info > span:nth-child(2){
 	float:left;

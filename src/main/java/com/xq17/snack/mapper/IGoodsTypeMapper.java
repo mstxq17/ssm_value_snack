@@ -6,7 +6,7 @@ import com.xq17.snack.bean.GoodsType;
 /**
  * 
     * @ClassName: IGoodsTypeMapper  
-    * @Description: 商品类型管理业务层接口
+    * @Description: 商品类型管理数据模型层
     * @author xq17  
     * @date 2020年9月2日  
     *
