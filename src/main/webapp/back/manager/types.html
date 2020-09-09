@@ -1,0 +1,42 @@
+<table id="type_data" data-options="fit:true"></table>
+
+<script>
+	$('#type_data').datagrid({   
+	    url:'../../types/findAll',
+	    method: 'get',
+	    fitColumns: true,
+	    striped: true,
+	    loadMsg: "正在加载数据..",
+	    sortName: "tno",
+	    remoteSort: false,
+	    columns:[[   
+	        {field:'tno',title:'商品编号',width:100, align: 'center', sortable: true},   
+	        {field:'tname',title:'商品类型',width:200, align: 'center'},   
+	        {field:'status',title:'商品状态',width:100,align:'center', formatter: function(value, row, index){
+	        	if(value == 0){
+	        		return "<font style='color: red'>已下架</font>";
+	        	}else{
+	        		return "<font style='color: green'>已上架</font>";
+	        	}
+	        	
+	        }}   
+	    ]],
+		toolbar: [{
+			iconCls: 'icon-add',
+			text: "添加",
+			handler: function(){alert('edit')}
+		},'-',{
+			text:"修改",
+			iconCls: 'icon-edit',
+			handler: function(){alert('help')}
+		},'-',{
+			text:"保存",
+			iconCls: 'icon-save',
+			handler: function(){alert('help')}
+		},'-',{
+			text:"撤销",
+			iconCls: 'icon-undo',
+			handler: function(){alert('help')}
+		}]
+	});  
+</script>

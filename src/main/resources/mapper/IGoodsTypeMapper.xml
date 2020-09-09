@@ -6,5 +6,8 @@
   <select id="finds" resultType="com.xq17.snack.bean.GoodsType">
     select tno, tname, status from goodstype where status !=0
   </select>
-
+  
+  <select id="findAll" resultType="GoodsType">
+  	select tno, tname, status from goodstype
+  </select>
 </mapper>

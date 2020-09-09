@@ -10,5 +10,47 @@
   <select id="findByPage" resultType="GoodsInfo" parameterType="map">
   	select gno, gname, price, pics pic, weight, unit from goodsinfo where status !=0 order by gno desc limit #{page}, #{rows}
   </select>
-
+  
+  <!-- 根据类型查、商品名模糊查、库存量区间查 -->
+  <select id="finds" resultType="GoodsInfo" parameterType="map">
+  	select gno, gname, g.tno, tname, price, weight, unit, balance, intro, qperied, g.status
+  	from goodsinfo g, goodstype t where g.tno = t.tno
+  		<if test="tno != null and tno!= ''">
+  			and g.tno = #{tno}
+  		</if>
+  		<if test="gname != null and  gname!=''">
+  			and gname like concat('%', #{gname}, '%')
+  		</if>
+  		<if test="sbalance != null and sbalance!=''">
+  			and balance &gt;= #{sbalance}
+  		</if>
+  		<if test="ebalance != null and  ebalance!=''">
+  			and balance &lt;= #{ebalance}
+  		</if>
+  		order by gno limit #{page}, #{rows}
+  </select>
+  
+  <!-- 根据类型查、商品名模糊查、库存量区间查 -->
+  <select id="totals" resultType="int" parameterType="map">
+  	select count(gno) from goodsinfo
+  	<where>
+  		<if test="tno != null and tno!= ''">
+  			and tno = #{tno}
+  		</if>
+  		<if test="gname != null and  gname!=''">
+  			and gname like concat('%', #{gname}, '%')
+  		</if>
+  		<if test="sbalance != null and sbalance!=''">
+  			and balance &gt;= #{sbalance}
+  		</if>
+  		<if test="ebalance != null and  ebalance!=''">
+  			and balance &lt;= #{ebalance}
+  		</if>
+  	</where>
+  </select>
+  
+  <insert id="add" parameterType="GoodsInfo">
+  	insert into goodsinfo values(0, #{gname}, #{tno}, #{price}, #{intro}, #{balance}, #{pics}, #{unit}, #{qperied}, #{weight}, #{descr}, #{status})
+  </insert>
+  
 </mapper>

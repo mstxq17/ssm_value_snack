@@ -156,9 +156,37 @@ function sendCode(){
 	var email = $.trim($("#email").val());
 	
 	$("#getCode").attr("disabled", "true"); // 不允许再点击
+	$("#email").attr("readonly", "true");
 	
 	//请求方式  地址  参数  回调函数
 	// TODO: 发送请求
+	$.post("member/code", {receiveEmail: email, name:nickName}, result=>{
+		if(result.code == 501){
+			$("#email").removeattr("reaonly");
+			$("#getCode").removeAttr("disabled"); // 因为验证码没有发送成功,所以需要允许用户再次发送
+			$("#getCode").next("span").text(result.msg + "...").show();
+			return;
+		}
+		
+		if(result.code == 200){
+			var  time =  180;
+			var timerTask = setInterval(()=>{
+				if(time > 0){
+					time--;
+					$("#getCode").val(time+"s");
+				}else{
+					$("#getCode").removeAttr("disabled").val("重新发送");
+					$("#email").removeAttr("readOnly");
+					clearInterval(timerTask); //清除定时器
+				}
+			}, 1000);
+			return;
+		}
+		
+		$("#email").removeAttr("readonly");
+		$("#getCode").removeAttr("disabled");
+		$("#getCode").next("span").text(result.msg+"...").show();
+	}, "json")
 }
 	
 
@@ -194,6 +222,17 @@ function checkRegister(){
 	}
 	
 	// TODO: 实现注册
+	$.post("member/reg", $("#myform").serialize(), result=>{
+		if(result.code == 200){
+			$("#errmsg").text("");
+			$("#errmsg").text("注册成功,请登录...").css("color", "green").show();
+			setTimeout(()=>{
+				location.href = "login.html";
+			}, 2000);
+			return;
+		}
+	} ,"json");
+	$("#errmsg").text("注册失败").css("color", "red").show();
 }
 	
 	

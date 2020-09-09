@@ -30,4 +30,10 @@ public class IGoodsTypeServiceImpl implements IGoodsTypeService {
 		return goodsTypeMapper.finds();
 	}
 
+	@Override
+	public List<GoodsType> findAll() {
+		// TODO Auto-generated method stub
+		return goodsTypeMapper.findAll();
+	}
+
 }

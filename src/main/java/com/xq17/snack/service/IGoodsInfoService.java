@@ -36,4 +36,18 @@ public interface IGoodsInfoService {
 	 */
 	public List<GoodsInfo> findByPage(Map<String, Object> map);
 	
+	
+	/**
+	 * 
+	    * @Title: finds  
+	    * @Description: 后台组合查询 
+	    * @param @param map
+	    * @param @return    参数  
+	    * @return Map<String,Object>    返回类型  
+	    * @throws
+	 */
+	public Map<String, Object> finds(Map<String, Object> map);
+
+	public int add(GoodsInfo gf);
+	
 }

@@ -6,4 +6,6 @@ import com.xq17.snack.bean.GoodsType;
 
 public interface IGoodsTypeService {
 	public List<GoodsType> finds();
+
+	public List<GoodsType> findAll();
 }

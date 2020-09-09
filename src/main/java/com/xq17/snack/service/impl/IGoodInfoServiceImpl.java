@@ -32,7 +32,7 @@ public class IGoodInfoServiceImpl implements IGoodsInfoService {
 	public Map<String, Object> findByFirst(Map<String, Object> map) {
 		
 		// TODO Auto-generated method stub
-		map = ParameterUtil.changeFindByPageParam(map);
+		//map = ParameterUtil.changeFindByPageParam(map);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("total", goodsInfoMapper.total());
 		result.put("rows", goodsInfoMapper.findByPage(map));
@@ -43,8 +43,25 @@ public class IGoodInfoServiceImpl implements IGoodsInfoService {
 	@Override
 	public List<GoodsInfo> findByPage(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		List<GoodsInfo> result = goodsInfoMapper.findByPage(ParameterUtil.changeFindByPageParam(map));
+		List<GoodsInfo> result = goodsInfoMapper.findByPage(map);
 		return result;
+	}
+
+
+	@Override
+	public Map<String, Object> finds(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("total", goodsInfoMapper.totals(map));
+		result.put("rows", goodsInfoMapper.finds(map));
+		return result;
+	}
+
+
+	@Override
+	public int add(GoodsInfo gf) {
+		// TODO Auto-generated method stub
+		return goodsInfoMapper.add(gf);
 	}
 
 }

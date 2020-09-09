@@ -69,4 +69,9 @@
         	<!-- 可使用的内存缓存大小 -->
         	<property name="maxInMemorySize" value="8192"></property>
         </bean>
+        
+        <bean id="sendEmailUtil" class="com.xq17.snack.utils.SendEmailUtil">
+        	<property name="sendEmail" value="121582414@qq.com"></property>
+        	<property name="pwd" value="khxqasaseithbide"></property>
+        </bean>
 </beans>

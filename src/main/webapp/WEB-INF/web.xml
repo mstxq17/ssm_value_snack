@@ -47,6 +47,12 @@
   	<servlet-name>DispatcherServlet</servlet-name>
   	<url-pattern>/</url-pattern>
   </servlet-mapping>
+  
+  <context-param>
+  	<param-name>uploadPath</param-name>
+  	<param-value>../snacknet_pics</param-value>
+  </context-param>
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>

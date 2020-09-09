@@ -12,14 +12,20 @@ import com.xq17.snack.bean.GoodsType;
 import com.xq17.snack.service.IGoodsTypeService;
 
 @RestController /* 说明这是控制层类,数据为json格式*/
-@RequestMapping("types")
+@RequestMapping("/types")
 public class GoodsTypeController {
 	
 	@Autowired
 	private IGoodsTypeService goodsTypeService;
 	
-	@GetMapping("goodsType")
+	@GetMapping("/finds")
 	public List<GoodsType> finds(){
 		return goodsTypeService.finds();
 	}
+	
+	@GetMapping("/findAll")
+	public List<GoodsType> findsAll(){
+		return goodsTypeService.findAll();
+	}
+	
 }

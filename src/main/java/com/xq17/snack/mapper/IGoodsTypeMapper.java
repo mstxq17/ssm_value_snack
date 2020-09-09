@@ -15,5 +15,6 @@ import com.xq17.snack.bean.GoodsType;
 
 public interface IGoodsTypeMapper {
 	public List<GoodsType> finds();
-	
+
+	public List<GoodsType> findAll();
 }
