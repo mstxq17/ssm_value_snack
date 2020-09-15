@@ -138,6 +138,13 @@ public class MemberInfoController {
 	 */
 	@PostMapping("/login")
 	public ResultVo login(HttpSession session, MemberInfo mf) {
+		// 验证码检验
+		//System.out.println(mf);
+		String vcode = String.valueOf(session.getAttribute("validateCode"));
+		
+		if(!mf.getRealName().equalsIgnoreCase(vcode)) {
+			return new ResultVo(501, "验证码错误", null);
+		}
 		MemberInfo memberinfo = membersInfoSerice.login(mf);
 		if(memberinfo != null) {
 			// 将当前登录信息存储到session中
@@ -155,7 +162,7 @@ public class MemberInfoController {
 		if(obj == null) {
 			return new ResultVo(500, "没有登录", null);
 		}
-		return new ResultVo(200, "已经登录", obj);
+		return new ResultVo(200, "已经登录", (MemberInfo)obj);
 		
 		
 	}

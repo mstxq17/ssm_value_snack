@@ -285,3 +285,13 @@ a{
 
 /* 分页展示*/
 
+#app_page_info {
+	clear:both;
+	width: 100%;
+	height: 40px;
+	text-align:center;
+	background: #E88E55;
+	color: #FFF;
+	line-height: 40px;
+}
+

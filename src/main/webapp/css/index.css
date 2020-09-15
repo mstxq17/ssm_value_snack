@@ -308,3 +308,7 @@ article {
 .bottom_nav {
 	display: none;
 }
+
+#app_page_info {
+	display: none;
+}

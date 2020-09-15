@@ -36,7 +36,7 @@ public class GoodsInfoController{
 	@Autowired
 	private IGoodsInfoService goodsInfoService;
 	
-	@GetMapping("/findByPage")
+	@PostMapping("/findByPage")
 	public List<GoodsInfo> findByPage(@RequestParam Map<String, Object> map, HttpServletRequest request){
 		return goodsInfoService.findByPage(ParameterUtil.changeFindByPageParam(map, request));
 	}

@@ -27,8 +27,9 @@
     	<a href="#" target="_blank" class="location">衡阳</a>
         
         <div class="header-info">
-            <div class="login-info">
-            	<a href="login.html" title="点击登录">您好，请登录</a>
+            <div class="login-info" >
+            	<a href="login.html" title="点击登录" v-if="onLogin">您好, [{{member.nickName}}]</a>
+            	<a href="login.html" title="点击登录" v-else >您好，请登录</a>
                 <a href="register.html" title="点击注册"> 免费注册 </a>
             </div>
             
@@ -67,16 +68,8 @@
             </div>
             
             <div class="search_item" id="search_item">
-            	<a href="#" class="selected">全部</a>
-            	<a href="#">干果</a>
-                <a href="#">麻辣</a>
-                <a href="#">水果</a>
-                <a href="#">饼干</a>
-                <a href="#">奶制品</a>
-                <a href="#">饮料</a>
-                <a href="#">干果</a>
-                <a href="#">麻辣</a>
-                <a href="#">水果</a>
+            	<a href="javascript:void(0)" class="selected">全部</a>
+            	<a href="javascript:void(0)" v-for="item in types" :data-tno="item.tno" >{{item.tname}}</a>
             </div>
         </div>
     </div>
@@ -125,6 +118,7 @@
     
     <div class="page_info" id="page_info">
     </div>
+    <div id="app_page_info" onclick="addFindByPage()">点击加载更多</div>
 </article>
 <div class="popup_con">
 	<div class="popup">
@@ -160,10 +154,9 @@
 <script src="js/vue.js"></script>
 <script src="js/qs.js"></script>
 <script src="js/axios.js"></script>
+<script src="js/checklogin.js"></script>
 
 <script>
-
-
 var page = 1; //默认查询第一页
 var rows = 5; //默认是每页显示10条数据
 
@@ -189,12 +182,46 @@ let vm = new Vue({
 });
 
 function showPage(total){
-	str = '<a href="javascript:void(0)" class="active">首页</a>';
+	str = '<a href="javascript:void(0)" onclick="findByPage(this,1)"  class="active">首页</a>';
 	for( var i=2; i<=total; i++){
-		str+= '<a href="javascript:void(0)">' + (i-1) + '</a>';
+		str+= '<a href="javascript:void(0)" onclick="findByPage(this,' +  i + ')">' + (i-1) + '</a>';
 	}
 	$("#page_info").append($(str));
 }
+
+function findByPage(obj, index){
+	if($(obj).hasClass("active")){
+		return;
+	}
+	
+	page = index;
+	// 高亮显示的切换
+	$("#page_info>a").removeClass("active");
+	$("#page_info>a").eq(index-1).addClass("active");
+	
+	// 查询指定页数据
+	axios.post("goods/findByPage", qs.stringify({page:page, rows:rows})).then(rt=>{
+		if(rt.status == 200){
+			vm.$data.goods = rt.data;
+		}
+	});	
+}
+
+function addFindByPage(){
+	page++;
+	axios.post("goods/findByPage", qs.stringify({page:page, rows:rows})).then(rt =>{
+		if(rt.status == 200){
+			vm.$data.goods = vm.$data.goods.concat(rt.data);
+			if(rt.data.length<Math.ceil(rows/3.0)*3){
+				$("#app_page_info").css("display", "none");
+			}
+		}
+	})
+	
+}
+
+
+
 
 function addCart() {
 	$("#popup_info").text("加入购物车成功...");
@@ -205,6 +232,8 @@ function addCart() {
 		}, 2000)
 	});
 }
+
+
 </script>
 </body>
 </html>

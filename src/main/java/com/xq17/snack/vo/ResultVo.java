@@ -1,5 +1,7 @@
 package com.xq17.snack.vo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * 
     * @ClassName: ResultVo  
@@ -12,6 +14,9 @@ public class ResultVo {
 
 	private Integer code;
 	private String msg;
+
+	
+	@JsonProperty("data")
 	private Object obj;
 	
 	
